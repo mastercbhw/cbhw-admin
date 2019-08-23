@@ -1,13 +1,22 @@
 import React from 'react'
 import { Form, Icon, Input, Button } from 'antd';
+import { connect } from 'dva'
 import styles from './login.less';
 
+@connect()
 @Form.create()
-class LoginForm extends React.Component {
-  handleSubmit = e => {
+class LoginForm extends React.PureComponent {
+  loginHandle = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    const { form: { validateFields }, dispatch } = this.props
+    validateFields((err, values) => {
       if (!err) {
+        dispatch({
+          type: 'user/login',
+          payload: {
+            params: values
+          }
+        })
         console.log('Received values of form: ', values);
       }
     });
@@ -23,7 +32,7 @@ class LoginForm extends React.Component {
             <div>Wellcome back</div>
           </div>
           <Form.Item className={styles.formItem} colon={false} required={false} label="账号">
-            {getFieldDecorator('username1', {
+            {getFieldDecorator('userName', {
               rules: [{ required: true, message: '请输入账号' }],
             })(
               <Input
@@ -33,7 +42,7 @@ class LoginForm extends React.Component {
             )}
           </Form.Item>
           <Form.Item className={styles.formItem} colon={false} required={false} label="密码">
-            {getFieldDecorator('password1', {
+            {getFieldDecorator('password', {
               rules: [{ required: true, message: '请输入密码' }],
             })(
               <Input
@@ -44,10 +53,10 @@ class LoginForm extends React.Component {
             )}
           </Form.Item>
           <div className={styles.registered}>
-            <span>注册</span>
+            admin/123456
           </div>
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+            <Button type="primary" onClick={this.loginHandle} style={{ width: '100%' }}>
                 Login
             </Button>
           </Form.Item>

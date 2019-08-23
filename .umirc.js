@@ -3,6 +3,9 @@
 export default {
   treeShaking: true,
   theme: './src/theme.js',
+  targets: {
+    ie: 9,
+  },
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
