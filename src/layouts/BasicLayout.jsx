@@ -10,7 +10,6 @@ import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import { isAntDesignPro } from '@/utils/utils';
 import logo from '../assets/logo.png';
 
 /**
@@ -22,25 +21,19 @@ const menuDataRender = menuList =>
     return Authorized.check(item.authority, localItem, null);
   });
 
-const footerRender = (_, defaultDom) => {
-  if (!isAntDesignPro()) {
-    return defaultDom;
-  }
-
-  return (
-    <>
-      {defaultDom}
-      <div
-        style={{
-          padding: '0px 24px 24px',
-          textAlign: 'center',
-        }}
-      >
-        hahaha
-      </div>
-    </>
-  );
-};
+const footerRender = (_, defaultDom) => (
+  <>
+    <div
+      style={{
+        padding: '0px 24px 24px',
+        textAlign: 'center',
+      }}
+    >
+      <div>喋喋以喋喋</div>
+      <div>大力出奇迹</div>
+    </div>
+  </>
+);
 
 const BasicLayout = props => {
   const { dispatch, children, settings } = props;

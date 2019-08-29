@@ -1,0 +1,72 @@
+.timelineWarp {
+  background: #fff;
+
+  .timelineHeader {
+    height: 48px;
+    padding: 10px;
+    line-height: 26px;
+    border-bottom: 1px solid #eee;
+
+    .typeItem {
+      padding: 0 10px;
+      cursor: pointer;
+      user-select: none;
+
+      &.active {
+        color: #178aea;
+        font-weight: 900;
+      }
+    }
+  }
+
+  .timeLineBody {
+    height: 96px;
+    overflow: hidden;
+
+    .tabsItem {
+      height: 80px;
+      line-height: 80px;
+
+      .tabsItemContent {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        font-style: normal;
+        text-align: center;
+
+        span {
+          display: inline-block;
+          height: 26px;
+          line-height: 26px;
+
+          &:nth-child(2) {
+            position: relative;
+            height: 26px;
+            line-height: 26px;
+
+            i {
+              display: inline-block;
+              padding: 0 5px;
+              font-style: normal;
+              position: relative;
+              z-index: 2;
+              background: #ccc;
+              border-radius: 13px;
+              overflow: hidden;
+            }
+
+            &::before {
+              position: absolute;
+              top: 50%;
+              left: -50px;
+              width: 200px;
+              border-bottom: 1px solid #ccc;
+              content: '';
+            }
+          }
+        }
+      }
+    }
+  }
+}
