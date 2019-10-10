@@ -36,7 +36,7 @@ const UserLayout = props => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>喋喋以喋喋</span>
+                <span className={styles.title}>春有百花秋有月</span>
               </Link>
             </div>
             <div className={styles.desc}>mastercbhw的后台管理系统</div>

@@ -24,8 +24,8 @@ const footerRender = (_, defaultDom) => (
         textAlign: 'center',
       }}
     >
-      <div>喋喋以喋喋</div>
-      <div>大力出奇迹</div>
+      <div>春有百花秋有月</div>
+      <div>夏有凉风冬有雪</div>
     </div>
   </>
 );

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import TimeLine from '@/components/TimeLine';
+import styles from './Timebar.less'
 
 class Timebar extends PureComponent {
   state = {
@@ -105,6 +106,14 @@ class Timebar extends PureComponent {
           typeOnClick={this.typeOnClick} // 全部，门诊，治疗  点击切换
           timeOnClick={this.timeOnClick} // 时间段  点击切换
         />
+        <div className={styles.content}>
+          <div>工作项目中需要，使用rc-tabs，改改样式，扒拉出一个这么糙的玩意。未来的你再次看到请不要笑。</div>
+          <div>不是啥正经项目，下面的内容就不转译中文了，凑合看吧。</div>
+          <div>有个唯一键已经不错了，人要知足常乐</div>
+          <div>住院还是门诊？{typeActiveKey}</div>
+          <div>那个时间段？{timeActiveKey}</div>
+          <div>选择了哪一个时间节点呀？{activeKey}</div>
+        </div>
       </div>
     );
   }
