@@ -1,6 +1,6 @@
 export default {
-  'menu.welcome': '欢迎',
-  'menu.demo': '项目中遇到的demo',
+  'menu.welcome': 'echarts-gl的三维柱状图',
+  'menu.demo': '糙组件',
   'menu.demo.timebar': '时间轴',
   'menu.home': '首页',
   'menu.login': '登录',
