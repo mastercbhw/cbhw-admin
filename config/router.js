@@ -55,7 +55,12 @@ export default [
               },
             ]
           },
-
+          {
+            path: '/form',
+            name: 'form',
+            icon: 'rocket',
+            component: './form/ConfigForm',
+          },
           {
             component: './404',
           },

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Table, Tag, Divider, Layout, Form, Input, Icon, Button } from 'antd';
+import { Table, Tag, Divider, Layout, Form, Input, Button } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import styles from './Simple.less'
 
 const { Content } = Layout
 
-function SimpleTable ({
+function SimpleTable({
   form: {
     getFieldDecorator,
   },
@@ -95,32 +95,32 @@ function SimpleTable ({
       }
     >
       <Content className={styles.simpleContent}>
-      <Form layout="inline">
-        <Form.Item>
-          {getFieldDecorator('hohohoho', {
-            rules: [{ required: true, message: '若无闲事挂心头' }],
-          })(
-            <Input
-              placeholder="若无闲事挂心头"
-            />,
-          )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: '便是人间好时节' }],
-          })(
-            <Input
-              type="sasasa"
-              placeholder="便是人间好时节"
-            />,
-          )}
-        </Form.Item>
-        <Form.Item style={{ float: 'right' }}>
-          <Button type="primary" htmlType="submit">
-            我是一个没啥用的按钮
+        <Form layout="inline">
+          <Form.Item>
+            {getFieldDecorator('hohohoho', {
+              rules: [{ required: true, message: '若无闲事挂心头' }],
+            })(
+              <Input
+                placeholder="若无闲事挂心头"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('password', {
+              rules: [{ required: true, message: '便是人间好时节' }],
+            })(
+              <Input
+                type="sasasa"
+                placeholder="便是人间好时节"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item style={{ float: 'right' }}>
+            <Button type="primary" htmlType="submit">
+              我是一个没啥用的按钮
           </Button>
-        </Form.Item>
-      </Form>
+          </Form.Item>
+        </Form>
         <Table
           title={() => '列表花样多得很，最好的那个列表永远是产品脑子里的那一个'}
           columns={columns}
