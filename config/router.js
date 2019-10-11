@@ -32,13 +32,26 @@ export default [
           {
             path: '/demo',
             name: 'demo',
-            icon: 'smile',
+            icon: 'rocket',
             routes: [
               {
                 path: '/demo/timebar',
                 name: 'timebar',
-                icon: 'smile',
+                icon: 'unordered-list',
                 component: './demo/Timebar',
+              },
+            ]
+          },
+          {
+            path: '/table',
+            name: 'table',
+            icon: 'rocket',
+            routes: [
+              {
+                path: '/table/simple',
+                name: 'simple',
+                icon: 'unordered-list',
+                component: './table/Simple',
               },
             ]
           },
