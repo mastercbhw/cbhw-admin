@@ -1,0 +1,52 @@
+.export-selectd-cl {
+  display: flex;
+  padding: 0 20px;
+  .selectWarp {
+    flex: 1;
+    height: 360px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border: solid #ccc;
+    border-width: 1px 0 1px 1px;
+    &:last-child {
+      border-right: 1px solid #ccc;
+    }
+    .allSelectedBox {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #ccc;
+      .showSelected {
+        &:before {
+          content: '|';
+          padding: 0 10px 0 0;
+        }
+      }
+    }
+
+    .checkd-items-cl {
+      cursor: pointer;
+      &.active {
+        background: #EAEDF1;
+      }
+      &:hover {
+        background: #EAEDF1;
+      }
+      display: flex;
+      .checkbox-self-cl {
+        padding: 9px 9px 9px 10px;
+      }
+      .checkd-label-cl {
+        flex: 1;
+        text-align: left;
+        padding: 9px 0 9px 0;
+      }
+      .checkd-num-cl {
+        width: 30px;
+        text-align: center;
+      }
+    }
+
+  }
+}
+
+

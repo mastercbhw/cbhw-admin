@@ -40,6 +40,12 @@ export default [
                 icon: 'unordered-list',
                 component: './demo/Timebar',
               },
+              {
+                path: '/demo/checkbox-tree',
+                name: 'checkbox',
+                icon: 'unordered-list',
+                component: './demo/CheckboxTree',
+              },
             ]
           },
           {

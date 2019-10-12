@@ -2,6 +2,7 @@ export default {
   'menu.welcome': 'echarts-gl的三维柱状图',
   'menu.demo': '糙组件',
   'menu.demo.timebar': '时间轴',
+  'menu.demo.checkbox': '多选框',
   'menu.table': '表格',
   'menu.table.simple': '简单表格',
   'menu.home': '首页',
