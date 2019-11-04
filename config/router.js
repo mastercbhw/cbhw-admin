@@ -24,6 +24,10 @@ export default [
             redirect: '/welcome',
           },
           {
+            path: '/index',
+            redirect: '/welcome',
+          },
+          {
             path: '/welcome',
             name: 'welcome',
             icon: 'smile',
@@ -59,6 +63,12 @@ export default [
                 icon: 'unordered-list',
                 component: './table/Simple',
               },
+              {
+                path: '/table/nested-table',
+                name: 'nested-table',
+                icon: 'unordered-list',
+                component: './table/NestedTable',
+              },
             ]
           },
           {
@@ -66,6 +76,18 @@ export default [
             name: 'form',
             icon: 'rocket',
             component: './form/ConfigForm',
+          },
+          {
+            path: '/umiform',
+            name: 'umiform',
+            icon: 'rocket',
+            component: './form/UmiUIForm',
+          },
+          {
+            path: '/config-tree',
+            name: 'config-tree',
+            icon: 'rocket',
+            component: './form/ConfigTree',
           },
           {
             component: './404',

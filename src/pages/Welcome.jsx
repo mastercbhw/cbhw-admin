@@ -1,5 +1,5 @@
 import React from 'react';
-import EchartGl from 'echarts-gl';
+import 'echarts-gl';
 import ReactEcharts from 'echarts-for-react'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
