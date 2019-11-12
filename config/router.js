@@ -90,6 +90,38 @@ export default [
             component: './form/ConfigTree',
           },
           {
+            path: '/dnd',
+            name: 'dnd',
+            icon: 'rocket',
+            routes: [
+              {
+                path: '/dnd/example0',
+                name: 'example0',
+                icon: 'highlight',
+                component: './dnd/example-0/index',
+              },
+              {
+                path: '/dnd/example1',
+                name: 'example1',
+                icon: 'highlight',
+                component: './dnd/example-1/index',
+              },
+              {
+                path: '/dnd/example2',
+                name: 'example2',
+                icon: 'highlight',
+                component: './dnd/example-2/index',
+              },
+              {
+                path: '/dnd/demo',
+                name: 'demo',
+                icon: 'highlight',
+                component: './dnd/demo/index',
+              },
+
+            ]
+          },
+          {
             component: './404',
           },
         ],

@@ -1,4 +1,7 @@
 export default {
+  'menu.login': '登录',
+  'menu.register': '注册',
+  'menu.register.result': '注册结果',
   'menu.welcome': 'echarts-gl的三维柱状图',
   'menu.demo': '糙组件',
   'menu.demo.timebar': '时间轴',
@@ -7,12 +10,16 @@ export default {
   'menu.table.simple': '简单表格',
   'menu.table.nested-table': '嵌套表格',
   'menu.form': '表单页',
-  'menu.config-tree': '树状结构配置',
   'menu.umiform': '参考umiUI的form配置',
+  'menu.config-tree': '树状结构配置',
   'menu.home': '首页',
-  'menu.login': '登录',
-  'menu.register': '注册',
-  'menu.register.result': '注册结果',
+  'menu.dnd': 'react-dnd实例',
+  'menu.dnd.example0': 'react-dnd国际象棋移动',
+  'menu.dnd.demo': 'demo',
+  'menu.dnd.example1': '垃圾桶效果',
+  'menu.dnd.example2': 'list拖拽',
+
+
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
