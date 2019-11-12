@@ -118,6 +118,12 @@ export default [
                 icon: 'highlight',
                 component: './dnd/demo/index',
               },
+              {
+                path: '/dnd/smooth-dnd',
+                name: 'smooth-dnd',
+                icon: 'highlight',
+                component: './dnd/smooth-dnd/index',
+              },
 
             ]
           },

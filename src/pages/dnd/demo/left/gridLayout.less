@@ -1,0 +1,46 @@
+.girdLayoutWarp {
+  background: #f7f7f7;
+  padding: 10px;
+
+  .girdLayoutContent {
+    display: flex;
+    justify-content: space-around;
+
+    .girdItem {
+      flex-basis: 48%;
+      height: 24px;
+      border-radius: 5px;
+      background: #fff;
+      border: 1px solid #ececec;
+      cursor: pointer;
+
+      &:first-child {
+        &::before {
+          content: '';
+          width: 50%;
+          height: 24px;
+          display: inline-block;
+          border-right: 1px solid #ececec;
+        }
+      }
+
+      &:last-child {
+        &::before {
+          content: '';
+          width: 33%;
+          height: 24px;
+          display: inline-block;
+          border-right: 1px solid #ececec;
+        }
+
+        &::after {
+          content: '';
+          width: 33%;
+          height: 24px;
+          display: inline-block;
+          border-right: 1px solid #ececec;
+        }
+      }
+    }
+  }
+}

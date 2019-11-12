@@ -18,6 +18,7 @@ export default {
   'menu.dnd.demo': 'demo',
   'menu.dnd.example1': '垃圾桶效果',
   'menu.dnd.example2': 'list拖拽',
+  'menu.dnd.smooth-dnd': 'smooth-dnd',
 
 
   'menu.dashboard': 'Dashboard',
