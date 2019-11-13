@@ -12,7 +12,7 @@ import ItemType from './ItemTypes';
 import styles from './Box.less'
 
 
-const Box = ({ col, category, cardList, changeCardList }) => {
+const Box = ({ col, category, cardList, changeCardList, inCol }) => {
   const box = {
     col,
     category,
@@ -26,10 +26,7 @@ const Box = ({ col, category, cardList, changeCardList }) => {
       const useless = cardList.find(item => item.id === -1);
       // 拖拽开始时，向 cardList 数据源中插入一个占位的元素，如果占位元素已经存在，不再重复插入
       if (!useless) {
-        changeCardList([{ category: '请移动到这里', id: -1, col: 24 }, ...cardList]);
-        // changeCardList(update(cardList, {
-        //   $splice: [[0, 0, { ...monitor.getItem(), id: id += 1 }]],
-        // }))
+        changeCardList([...cardList, { category: '请移动到这里', id: -1, col: 24 }]);
       }
       return box;
     },
@@ -39,7 +36,6 @@ const Box = ({ col, category, cardList, changeCardList }) => {
        *  1、如果是，则使用真正传入的 box 元素代替占位元素
        *  2、如果否，则将占位元素删除
        */
-
       if (monitor.didDrop()) {
         const uselessIndex = cardList.findIndex(item => item.id === -1);
         // 更新 cardList 数据源

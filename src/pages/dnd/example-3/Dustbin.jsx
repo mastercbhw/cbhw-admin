@@ -17,7 +17,7 @@ function getStyle(backgroundColor) {
     fontSize: '1rem',
   }
 }
-const Dustbin = ({ greedy, children }) => {
+const Dustbin = ({ greedy, children, id }) => {
   const [hasDropped, setHasDropped] = useState(false)
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false)
   const [{ isOver, isOverCurrent }, drop] = useDrop({
@@ -40,6 +40,8 @@ const Dustbin = ({ greedy, children }) => {
   if (isOverCurrent || (isOver && greedy)) {
     backgroundColor = 'darkgreen'
   }
+  console.log(`TCL: isOverCurrent${id}`, isOverCurrent)
+
   return (
     <div ref={drop} style={getStyle(backgroundColor)}>
       {text}

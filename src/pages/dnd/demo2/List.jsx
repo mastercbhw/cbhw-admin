@@ -11,7 +11,7 @@ import ItemTypes from './ItemTypes';
 import Card from './Card'
 import styles from './List.less'
 
-const List = ({ cardList, changeCardList }) => {
+const List = ({ cardList, changeCardList, inCol, changeInCol }) => {
   const [, drop] = useDrop({
     accept: ItemTypes.CARD,
   });
@@ -48,7 +48,23 @@ const List = ({ cardList, changeCardList }) => {
             您可以通过点击拖拽【题型】或【布局】来添加
           </div>
         )
-          : cardList.map((item, index) => <Card index={index} id={item.id} key={`${item.id}${index}`} moveCard={moveCard} {...item} />)
+          : cardList.map((item, index) => {
+            // console.log('TCL: List -> item', item)
+            console.log('TCL: List -> inCol', inCol)
+            if (inCol && item.id === -1) return null
+            return (
+              <Card
+                index={index}
+                id={item.id}
+                key={`${item.id}${index}`}
+                moveCard={moveCard}
+                cardList={cardList}
+                changeCardList={changeCardList}
+                changeInCol={changeInCol}
+                {...item}
+              />
+            )
+          })
       }
     </div>
   )
