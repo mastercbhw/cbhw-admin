@@ -12,7 +12,7 @@ import ItemType from './ItemTypes';
 import styles from './Box.less'
 
 
-const Box = ({ col, category, cardList, changeCardList, inCol }) => {
+const Box = ({ col, category, cardList, changeCardList }) => {
   const box = {
     col,
     category,

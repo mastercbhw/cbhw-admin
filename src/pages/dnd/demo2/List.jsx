@@ -49,8 +49,6 @@ const List = ({ cardList, changeCardList, inCol, changeInCol }) => {
           </div>
         )
           : cardList.map((item, index) => {
-            // console.log('TCL: List -> item', item)
-            console.log('TCL: List -> inCol', inCol)
             if (inCol && item.id === -1) return null
             return (
               <Card
@@ -58,8 +56,6 @@ const List = ({ cardList, changeCardList, inCol, changeInCol }) => {
                 id={item.id}
                 key={`${item.id}${index}`}
                 moveCard={moveCard}
-                cardList={cardList}
-                changeCardList={changeCardList}
                 changeInCol={changeInCol}
                 {...item}
               />

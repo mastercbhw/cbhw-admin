@@ -23,7 +23,7 @@ function getStyle(borderColor) {
  * @param {number} index 当前的索引
  */
 
-const CardCol = ({ id, parentHoverIndex, index, inCol, changeInCol }) => {
+const CardCol = ({ parentHoverIndex, index, changeInCol }) => {
   const [hasDropped, setHasDropped] = useState(false)
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false)
 

@@ -11,7 +11,7 @@ import CardCol from './CardCol';
 import ItemTypes from './ItemTypes';
 import styles from './Card.less'
 
-const Card = ({ category, col, index, moveCard, id, cardList, changeCardList, changeInCol }) => {
+const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
   const ref = useRef(null);
 
   const [{ isOverCurrent }, drop] = useDrop({
@@ -101,16 +101,16 @@ const Card = ({ category, col, index, moveCard, id, cardList, changeCardList, ch
     if (col === 8) {
       element = (
         <>
-          <Col style={{ height: '100%' }} span={8}><CardCol id={`${id}-1`} cardList={cardList} changeCardList={changeCardList} changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
-          <Col style={{ height: '100%' }} span={8}><CardCol id={`${id}-2`} cardList={cardList} changeCardList={changeCardList} changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
-          <Col style={{ height: '100%' }} span={8}><CardCol id={`${id}-3`} cardList={cardList} changeCardList={changeCardList} changeInCol={changeInCol} parentHoverIndex={index} index={3} /></Col>
+          <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
+          <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
+          <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={3} /></Col>
         </>
       )
     } else if (col === 12) {
       element = (
         <>
-          <Col style={{ height: '100%' }} span={12} ><CardCol id={`${id}-4`} cardList={cardList} changeCardList={changeCardList} changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
-          <Col style={{ height: '100%' }} span={12} ><CardCol id={`${id}-5`} cardList={cardList} changeCardList={changeCardList} changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
+          <Col span={12} ><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
+          <Col span={12} ><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
         </>
       )
     } else {

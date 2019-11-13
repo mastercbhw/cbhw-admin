@@ -54,7 +54,6 @@ const Container = () => {
               {...item}
               cardList={cardList}
               changeCardList={changeCardList}
-              inCol={inCol}
             />
           ))
         }
