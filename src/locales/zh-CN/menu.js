@@ -16,8 +16,11 @@ export default {
   'menu.dnd': 'react-dnd实例',
   'menu.dnd.example0': 'react-dnd国际象棋移动',
   'menu.dnd.demo': 'demo',
+  'menu.dnd.demo2': 'demo2',
   'menu.dnd.example1': '垃圾桶效果',
   'menu.dnd.example2': 'list拖拽',
+  'menu.dnd.example3': '嵌套垃圾箱',
+  'menu.dnd.example4': '嵌套拖拽',
   'menu.dnd.smooth-dnd': 'smooth-dnd',
 
 

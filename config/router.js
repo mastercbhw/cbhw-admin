@@ -113,10 +113,28 @@ export default [
                 component: './dnd/example-2/index',
               },
               {
+                path: '/dnd/example3',
+                name: 'example3',
+                icon: 'highlight',
+                component: './dnd/example-3/index',
+              },
+              {
+                path: '/dnd/example4',
+                name: 'example4',
+                icon: 'highlight',
+                component: './dnd/example-4/index',
+              },
+              {
                 path: '/dnd/demo',
                 name: 'demo',
                 icon: 'highlight',
                 component: './dnd/demo/index',
+              },
+              {
+                path: '/dnd/demo2',
+                name: 'demo2',
+                icon: 'highlight',
+                component: './dnd/demo2/index',
               },
               {
                 path: '/dnd/smooth-dnd',

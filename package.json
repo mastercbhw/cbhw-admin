@@ -43,6 +43,7 @@
     "antd": "^3.20.0",
     "bizcharts": "^3.5.5",
     "classnames": "^2.2.6",
+    "dnd-core": "^9.4.0",
     "dva": "^2.4.1",
     "echarts": "^4.3.0",
     "echarts-for-react": "^2.0.15-beta.1",
