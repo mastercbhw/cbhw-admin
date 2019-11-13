@@ -75,6 +75,7 @@ const Card = ({ id, text, index, moveCard }) => {
       isDragging: monitor.isDragging(),
     }),
   })
+  console.log('TCL: Card -> isDragging', isDragging)
   const opacity = isDragging ? 0 : 1
   drag(drop(ref))
   return (

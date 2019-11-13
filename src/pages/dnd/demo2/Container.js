@@ -3,7 +3,8 @@
  * overview: 整个拖拽演示界面
  */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import nanoid from 'nanoid'
 import Box from './Box';
 import List from './List';
 import styles from './index.less'
@@ -18,18 +19,20 @@ const boxs = [
   { id: 8, category: '三格', bg: 'yellow', col: 8 },
 ]
 
+const cardListData = []
+console.log('TCL: cardListData', cardListData)
+
 
 const Container = () => {
-  const [cardList, setCardList] = useState([]);
+  const [cardList, setCardList] = useState(cardListData);
 
   const changeCardList = list => {
+    console.log('TCL: Container -> list', list)
     setCardList([...list]);
   }
 
 
-  const changeLayoutList = list => {
-    setCardList([...list]);
-  }
+  const listRender = useCallback(() => <List cardList={cardList} changeCardList={changeCardList} />, [cardList])
 
   return (
     <div className={styles.dragWarp}>
@@ -39,7 +42,7 @@ const Container = () => {
         }
       </div>
       <div className={styles.centerContent}>
-        <List cardList={cardList} changeCardList={changeCardList} />
+        {listRender()}
       </div>
     </div>
   )

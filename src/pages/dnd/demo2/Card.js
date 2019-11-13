@@ -6,26 +6,21 @@
 import React, { useRef } from 'react';
 import { Col } from 'antd'
 import { useDrag, useDrop } from 'react-dnd';
-import CardCol from './CardCol'
+import classNames from 'classnames'
+import CardCol from './CardCol';
 import ItemTypes from './ItemTypes';
+import styles from './Card.less'
 
-const Card = ({ bg, category, col, index, moveCard, id }) => {
+const Card = ({ category, col, index, moveCard, id }) => {
   const ref = useRef(null);
 
-  const [{ isDragging }, drag] = useDrag({
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
-    }),
-    // item 中包含 index 属性，则在 drop 组件 hover 和 drop 是可以根据第一个参数获取到 index 值
-    item: { type: ItemTypes.Card, index },
-  });
-
   const [{ isOverCurrent }, drop] = useDrop({
-    accept: ItemTypes.Card,
+    accept: ItemTypes.CARD,
     collect: monitor => ({
       isOver: monitor.isOver(),
       isOverCurrent: monitor.isOver({ shallow: true }),
     }),
+
     hover(item, monitor) {
       if (!ref.current || !isOverCurrent) {
         return;
@@ -83,52 +78,55 @@ const Card = ({ bg, category, col, index, moveCard, id }) => {
     },
   });
 
-  let opacity = 0.4
-  if (id !== -1) {
-    opacity = 0.4
-    if (isDragging) {
-      opacity = 0.2
-    } else {
-      opacity = 1
-    }
-  }
+  const [{ opacity, isDragging }, drag] = useDrag({
+    item: { type: ItemTypes.CARD, id, index },
+    isDragging(monitor) {
+      // If your component gets unmounted while dragged
+      // (like a card in Kanban board dragged between lists)
+      // you can implement something like this to keep its
+      // appearance dragged:
+      return monitor.getItem().id === id
+    },
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0 : 1,
+      isDragging: monitor.isDragging(),
+    }),
+    // item 中包含 index 属性，则在 drop 组件 hover 和 drop 是可以根据第一个参数获取到 index 值
+  });
 
-  const style = {
-    background: bg,
-    margin: '16px 6px',
-    // Card 为占位元素是，透明度 0.4，拖拽状态时透明度 0.2，正常情况透明度为 1
-    opacity,
-    padding: '20px 0px',
-    verticalAlign: 40,
-  };
-
-  let element
-
+  let element = null
 
   if (col === 8) {
     element = (
       <>
-        <Col span={8} ><CardCol parentHoverIndex={index} index={1} />-1-</Col>
-        <Col span={8} ><CardCol parentHoverIndex={index} index={2} />-2-</Col>
-        <Col span={8} ><CardCol parentHoverIndex={index} index={3} />-3-</Col>
+        <Col span={8} ><CardCol parentHoverIndex={index} index={1} /></Col>
+        <Col span={8} ><CardCol parentHoverIndex={index} index={2} /></Col>
+        <Col span={8} ><CardCol parentHoverIndex={index} index={3} /></Col>
       </>
     )
   } else if (col === 12) {
     element = (
       <>
-        <Col span={12} ><CardCol parentHoverIndex={index} index={1} />-1-</Col>
-        <Col span={12} ><CardCol parentHoverIndex={index} index={2} />-2-</Col>
+        <Col span={12} ><CardCol parentHoverIndex={index} index={1} /></Col>
+        <Col span={12} ><CardCol parentHoverIndex={index} index={2} /></Col>
       </>
     )
   } else {
-    element = <Col span={24}>-24-</Col>
+    element = null
   }
 
   // 使用 drag 和 drop 对 ref 进行包裹，则组件既可以进行拖拽也可以接收拖拽组件
   drag(drop(ref));
 
   return (
-    <div ref={ref} style={style}>
+    <div
+      ref={ref}
+      className={classNames({
+        [styles.cardItem]: id !== -1,
+        [styles.cardItemInit]: id === -1,
+      })}
+      style={{ opacity }}
+    >
       {element}
       {category}
     </div>

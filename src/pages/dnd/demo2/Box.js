@@ -4,33 +4,36 @@
  */
 
 import React from 'react';
+import update from 'immutability-helper';
 import { useDrag } from 'react-dnd';
 import classNames from 'classnames'
+import nanoid from 'nanoid'
 import ItemType from './ItemTypes';
 import styles from './Box.less'
 
-let id = 1;
 
-const Box = ({ bg, col, category, cardList, changeCardList }) => {
+const Box = ({ col, category, cardList, changeCardList }) => {
   const box = {
-    bg,
     col,
     category,
-    type: ItemType.Card,
+    type: ItemType.CARD,
   };
+  const unquieid = nanoid()
+
   const [, drag] = useDrag({
     item: box,
-    begin(monitor) {
+    begin: () => {
       const useless = cardList.find(item => item.id === -1);
       // 拖拽开始时，向 cardList 数据源中插入一个占位的元素，如果占位元素已经存在，不再重复插入
       if (!useless) {
-        changeCardList([{ bg: 'aqua', category: '放这里', id: -1, col: 24 }, ...cardList]);
+        changeCardList([{ category: '请移动到这里', id: -1, col: 24 }, ...cardList]);
+        // changeCardList(update(cardList, {
+        //   $splice: [[0, 0, { ...monitor.getItem(), id: id += 1 }]],
+        // }))
       }
       return box;
     },
-    end(_, monitor) {
-      const uselessIndex = cardList.findIndex(item => item.id === -1);
-
+    end: (_, monitor) => {
       /**
        * 拖拽结束时，判断是否将拖拽元素放入了目标接收组件中
        *  1、如果是，则使用真正传入的 box 元素代替占位元素
@@ -38,12 +41,20 @@ const Box = ({ bg, col, category, cardList, changeCardList }) => {
        */
 
       if (monitor.didDrop()) {
-        cardList.splice(uselessIndex, 1, { ...monitor.getItem(), id: id += 1 });
+        const uselessIndex = cardList.findIndex(item => item.id === -1);
+        // 更新 cardList 数据源
+        changeCardList(update(cardList, {
+          $splice: [[uselessIndex, 1, { ...monitor.getItem(), id: unquieid }]],
+        }))
       } else {
-        cardList.splice(uselessIndex, 1);
+        const uselessIndex = cardList.findIndex(item => item.id === -1);
+        // 更新 cardList 数据源
+        changeCardList(update(cardList, {
+          $splice: [[uselessIndex, 1]],
+        }))
       }
-      // 更新 cardList 数据源
-      changeCardList(cardList);
+
+      // changeCardList(cardList);
     },
 
   });

@@ -6,13 +6,14 @@
 import update from 'immutability-helper';
 import React, { useCallback } from 'react';
 import { useDrop } from 'react-dnd';
+import isEqual from 'lodash/isEqual'
 import ItemTypes from './ItemTypes';
-import Card from './Card';
+import Card from './Card'
 import styles from './List.less'
 
 const List = ({ cardList, changeCardList }) => {
   const [, drop] = useDrop({
-    accept: ItemTypes.Card,
+    accept: ItemTypes.CARD,
   });
 
   const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -22,26 +23,32 @@ const List = ({ cardList, changeCardList }) => {
      */
     if (dragIndex === undefined && hoverIndex) {
       const lessIndex = cardList.findIndex(item => item.id === -1);
-      changeCardList(update(cardList, {
-        $splice: [[lessIndex, 1], [hoverIndex, 0, { bg: 'aqua', category: '放这里', id: -1, col: 24 }]],
-      }));
+      const newList = update(cardList, {
+        $splice: [[lessIndex, 1], [hoverIndex, 0, { category: '请移动到这里', id: -1, col: 24 }]],
+      });
+      if (!isEqual(cardList, newList)) changeCardList(newList)
+      return
     }
 
-
     // card数组的数据移动
-    if (dragIndex !== undefined && hoverIndex !== undefined) {
+    if (dragIndex !== undefined && hoverIndex) {
       const dragCard = cardList[dragIndex];
-      changeCardList(update(cardList, {
+      const newList = update(cardList, {
         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]],
-      }));
+      });
+      if (!isEqual(cardList, newList)) changeCardList(newList)
     }
   }, [cardList])
 
   return (
     <div className={styles.ListWarp} ref={drop}>
       {
-        cardList.length <= 0 ? <div style={{ lineHeight: '60px' }}>请放入水果</div>
-          : cardList.map((item, index) => <Card index={index} key={`${item.id}${index}`} moveCard={moveCard} {...item} />)
+        cardList.length <= 0 ? (
+          <div className={styles.ListIsNoData}>
+            您可以通过点击拖拽【题型】或【布局】来添加
+          </div>
+        )
+          : cardList.map((item, index) => <Card index={index} id={item.id} key={`${item.id}${index}`} moveCard={moveCard} {...item} />)
       }
     </div>
   )

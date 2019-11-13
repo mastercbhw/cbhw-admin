@@ -40,6 +40,7 @@ const Container = () => {
     ])
     const moveCard = useCallback(
       (dragIndex, hoverIndex) => {
+        console.log('useCallback')
         const dragCard = cards[dragIndex]
         setCards(
           update(cards, {

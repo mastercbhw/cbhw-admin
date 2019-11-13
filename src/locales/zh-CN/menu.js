@@ -13,6 +13,8 @@ export default {
   'menu.umiform': '参考umiUI的form配置',
   'menu.config-tree': '树状结构配置',
   'menu.home': '首页',
+  'menu.immutability-helper': 'immutability-helper的API测试',
+
   'menu.dnd': 'react-dnd实例',
   'menu.dnd.example0': 'react-dnd国际象棋移动',
   'menu.dnd.demo': 'demo',

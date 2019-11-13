@@ -28,7 +28,7 @@ const CardCol = ({ greedy, parentHoverIndex, index, children }) => {
   const [hasDropped, setHasDropped] = useState(false)
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false)
   const [{ isOver, isOverCurrent }, drop] = useDrop({
-    accept: ItemTypes.Card,
+    accept: ItemTypes.CARD,
     drop(item, monitor) {
       if (!item.col || (item.hasOwnProperty('col') && item.col !== 24)) {
         return
@@ -37,8 +37,9 @@ const CardCol = ({ greedy, parentHoverIndex, index, children }) => {
       if (didDrop && !greedy) {
         return
       }
-      console.log('TCL: drop -> item', item)
+      console.log('TCL: CardCol drop -> item', item)
       console.log('TCL: CardCol -> parentHoverIndex', parentHoverIndex)
+      console.log('TCL: CardCol -> index', index)
 
 
       setHasDropped(true)

@@ -90,6 +90,12 @@ export default [
             component: './form/ConfigTree',
           },
           {
+            path: '/immutability-helper',
+            name: 'immutability-helper',
+            icon: 'rocket',
+            component: './immutabilityHelper',
+          },
+          {
             path: '/dnd',
             name: 'dnd',
             icon: 'rocket',
