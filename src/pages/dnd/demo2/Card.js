@@ -4,7 +4,7 @@
  */
 
 import React, { useRef, useMemo } from 'react';
-import { Col } from 'antd'
+import { Col, Row } from 'antd'
 import { useDrag, useDrop } from 'react-dnd';
 import classNames from 'classnames'
 import CardCol from './CardCol';
@@ -100,11 +100,11 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
 
     if (col === 8) {
       element = (
-        <>
+        <Row gutter={20}>
           <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
           <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
           <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={3} /></Col>
-        </>
+        </Row>
       )
     } else if (col === 12) {
       element = (
@@ -126,13 +126,13 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
     <div
       ref={ref}
       className={classNames({
-        [styles.cardItem]: id !== -1,
-        [styles.cardItemInit]: id === -1,
+        [styles.cardItem]: id !== -1 && col === 24,
+        [styles.cardItemInit]: id === -1 && col === 24,
+        [styles.cardItemColWarp]: id !== -1 && col !== 24,
       })}
       style={{ opacity }}
     >
-      {currentElement}
-      {category}
+      {col === 24 ? category : currentElement}
     </div>
   )
 }

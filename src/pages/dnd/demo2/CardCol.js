@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
+import styles from './CardCol.less'
 
 function getStyle(borderColor) {
   return {
-    border: '1px dashed',
-    boxSizing: 'border-box',
-    background: '#ccc',
-    // minHeight: '40px',
-    height: '100%',
-    margin: 10,
-    color: 'white',
     borderColor,
-    textAlign: 'center',
-    borderRadius: 5,
   }
 }
 
@@ -60,7 +52,7 @@ const CardCol = ({ parentHoverIndex, index, changeInCol }) => {
   changeInCol(flag)
 
   return (
-    <div ref={drop} style={getStyle(borderColor)}>
+    <div ref={drop} className={styles.cardCol} style={getStyle(borderColor)}>
       {text}
       <br />
       {hasDropped && <span>dropped {hasDroppedOnChild && ' on child'}</span>}
