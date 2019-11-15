@@ -23,22 +23,18 @@ const boxs = [
 const cardListData = [
   { id: 8, category: '三格', bg: 'yellow', col: 8 },
 ]
-console.log('TCL: cardListData', cardListData)
-
 
 const Container = () => {
   // card列表数据
   const [cardList, setCardList] = useState(cardListData);
   // 改变数据的函数
   const changeCardList = list => {
-    console.log('TCL: Container -> list', list)
     setCardList([...list]);
   }
 
   // 是否在两栏或者三栏的col里面
   const [inCol, setInCol] = useState(false)
   const changeInCol = flag => {
-    console.log('TCL: Container -> flag', flag)
     setInCol(flag);
   }
 

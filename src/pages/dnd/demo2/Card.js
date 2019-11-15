@@ -14,7 +14,7 @@ import styles from './Card.less'
 const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
   const ref = useRef(null);
 
-  const [{ isOverCurrent }, drop] = useDrop({
+  const [{ isOverCurrent, isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     collect: monitor => ({
       isOver: monitor.isOver(),
@@ -22,7 +22,9 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
     }),
 
     hover(item, monitor) {
-      if (!ref.current || !isOverCurrent) {
+      // monitor.isOver()  嵌套的也无所谓，只要在其上方就为true
+      // monitor.isOver({ shallow: true }) 嵌套的话会被遮挡，必须直接接触才能为true
+      if (!ref.current || !monitor.isOver() || !monitor.isOver({ shallow: true })) {
         return;
       }
       const dragIndex = item.index;
@@ -65,8 +67,14 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
         return;
       }
 
-      // 执行 move 回调函数
       moveCard(dragIndex, hoverIndex);
+
+      // if (col !== 24) {
+      //   changeInCol(true)
+      // } else {
+      //   changeInCol(false)
+      // }
+      // 执行 move 回调函数
 
       /**
        * 如果拖拽的组件为 Box，则 dragIndex 为 undefined，此时不对 item 的 index 进行修改
@@ -90,6 +98,7 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0 : 1,
       isDragging: monitor.isDragging(),
+      item: monitor.getItem(),
     }),
     // item 中包含 index 属性，则在 drop 组件 hover 和 drop 是可以根据第一个参数获取到 index 值
   });
@@ -100,7 +109,7 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
 
     if (col === 8) {
       element = (
-        <Row gutter={20}>
+        <Row gutter={10}>
           <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
           <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
           <Col span={8}><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={3} /></Col>
@@ -108,10 +117,10 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
       )
     } else if (col === 12) {
       element = (
-        <>
+        <Row gutter={10}>
           <Col span={12} ><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={1} /></Col>
           <Col span={12} ><CardCol changeInCol={changeInCol} parentHoverIndex={index} index={2} /></Col>
-        </>
+        </Row>
       )
     } else {
       element = null
@@ -133,6 +142,7 @@ const Card = ({ category, col, index, moveCard, id, changeInCol }) => {
       style={{ opacity }}
     >
       {col === 24 ? category : currentElement}
+      {/* {col === 24 ? category : null} */}
     </div>
   )
 }

@@ -16,7 +16,7 @@ const List = ({ cardList, changeCardList, inCol, changeInCol }) => {
     accept: ItemTypes.CARD,
   });
 
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
+  const moveCard = useCallback((dragIndex, hoverIndex, col) => {
     /**
      * 1、如果此时拖拽的组件是 Box 组件，则 dragIndex 为 undefined，则此时修改，则此时修改 cardList 中的占位元素的位置即可
      * 2、如果此时拖拽的组件是 Card 组件，则 dragIndex 不为 undefined，此时替换 dragIndex 和 hoverIndex 位置的元素即可
@@ -54,6 +54,7 @@ const List = ({ cardList, changeCardList, inCol, changeInCol }) => {
               <Card
                 index={index}
                 id={item.id}
+                col={item.col}
                 key={`${item.id}${index}`}
                 moveCard={moveCard}
                 changeInCol={changeInCol}
