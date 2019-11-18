@@ -1,3 +1,46 @@
+.containerWarp {
+  display: flex;
+  height: 100vh;
+
+  .containerLeft {
+    width: 250px;
+    border-right: 1px solid #d3d3d3;
+    background: #f7f7f7;
+  }
+
+  .containerContent {
+    flex: 1;
+    padding: 10px;
+  }
+
+  .containerRight {
+    width: 200px;
+    border-left: 1px solid #d3d3d3;
+    background: #f7f7f7;
+  }
+}
+
+
+.dragButtonList {
+  padding: 0 10px 0 10px;
+  background: #f7f7f7;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .dragButtonWarp {
+    flex-basis: 48%;
+    margin-bottom: 8px;
+
+    .buttonSelf {
+      width: 100%;
+      text-align: left;
+      cursor: move;
+    }
+  }
+}
+
+
 .girdLayoutWarp {
   background: #f7f7f7;
   padding: 10px;
@@ -12,7 +55,7 @@
       border-radius: 5px;
       background: #fff;
       border: 1px solid #ececec;
-      cursor: pointer;
+      cursor: move;
 
       &.girdItem1 {
         &::before {
