@@ -24,7 +24,11 @@ const List = ({ cardList, changeCardList }) => {
     }
   }
 
-  const moveCard = useCallback((id, hoverIndex, dragIndex) => {
+  const moveCard = useCallback((draggedId, hoverIndex, dragIndex, id, monitor) => {
+    const isCurrentOver = monitor.isOver({ shallow: true })
+    if (id !== draggedId) {
+      return
+    }
     // 从左侧拖到右侧列表
     if (dragIndex === undefined) {
       const initIndex = cardList.findIndex(_ => _.id === -1)
@@ -38,7 +42,7 @@ const List = ({ cardList, changeCardList }) => {
     }
 
     // 仅右边拖动排序
-    const { card, index } = findCard(id)
+    const { card, index } = findCard(draggedId)
     if (card) {
       const newList = update(cardList, {
         $splice: [[index, 1], [hoverIndex, 0, card]],
