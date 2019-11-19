@@ -12,22 +12,22 @@ import List from './List'
 const { TabPane } = Tabs
 
 const dragButtonData = [
-  { icon: 'search', name: '标签', id: 1, col: 24 },
-  { icon: 'search', name: '文本框', id: 2, col: 24 },
-  { icon: 'search', name: '单选', id: 3, col: 24 },
-  { icon: 'search', name: '复选', id: 4, col: 24 },
-  { icon: 'search', name: '下拉列表', id: 5, col: 24 },
-  { icon: 'search', name: '日期时间', id: 6, col: 24 },
-  { icon: 'search', name: '分割线', id: 7, col: 24 },
+  { icon: 'search', name: '标签', id: 1, col: 24, isPageEle: true, eleType: 'title' },
+  { icon: 'search', name: '文本框', id: 2, col: 24, isPageEle: true, eleType: 'input' },
+  { icon: 'search', name: '单选', id: 3, col: 24, isPageEle: true, eleType: 'radio' },
+  { icon: 'search', name: '复选', id: 4, col: 24, isPageEle: true, eleType: 'checkbox' },
+  { icon: 'search', name: '下拉列表', id: 5, col: 24, isPageEle: true, eleType: 'select' },
+  { icon: 'search', name: '日期时间', id: 6, col: 24, isPageEle: true, eleType: 'datepicker' },
+  { icon: 'search', name: '分割线', id: 7, col: 24, isPageEle: true, eleType: 'divider' },
 ]
 
 // 可拖拽的题型组件
-const DragButton = ({ cardList, changeCardList, icon, name, id, ...props }) => {
+const DragButton = ({ cardList, changeCardList, icon, name, id, isPageEle, ...props }) => {
   const gragBtnItem = {
     type: ItemTypes.CARD,
     id,
     name,
-    kankan: '嘿嘿',
+    isPageEle,
     ...props,
   }
   const [, drag] = useDrag({
@@ -47,15 +47,20 @@ const DragButton = ({ cardList, changeCardList, icon, name, id, ...props }) => {
         const uselessIndex = cardList.findIndex(item => item.id === -1);
         // 更新 cardList 数据源
         const splictObj = { ...monitor.getItem(), id: unquieid }
-        changeCardList(update(cardList, {
-          $splice: [[uselessIndex, 1, splictObj]],
-        }))
+
+        if (typeof uselessIndex === 'number' && uselessIndex !== -1) {
+          changeCardList(update(cardList, {
+            $splice: [[uselessIndex, 1, splictObj]],
+          }))
+        }
       } else {
         // 没有拖拽到targets
         const uselessIndex = cardList.findIndex(item => item.id === -1);
-        changeCardList(update(cardList, {
-          $splice: [[uselessIndex, 1]],
-        }))
+        if (typeof uselessIndex === 'number' && uselessIndex !== -1) {
+          changeCardList(update(cardList, {
+            $splice: [[uselessIndex, 1]],
+          }))
+        }
       }
     },
   })
@@ -68,16 +73,17 @@ const DragButton = ({ cardList, changeCardList, icon, name, id, ...props }) => {
 
 
 const GridItemData = [
-  { col: 12, index: 1, name: '两栏', id: 'girdItem1' },
-  { col: 8, index: 2, name: '三栏', id: 'girdItem2' },
+  { col: 12, index: 1, name: '两栏', id: 'girdItem1', isPageEle: true },
+  { col: 8, index: 2, name: '三栏', id: 'girdItem2', isPageEle: true },
 ]
 
 // 栅格组件
-const GridItemDrag = ({ cardList, changeCardList, id, index, name, ...props }) => {
+const GridItemDrag = ({ cardList, changeCardList, id, index, name, isPageEle, ...props }) => {
   const gridItem = {
     type: ItemTypes.CARD,
     id,
     name,
+    isPageEle,
     ...props,
   }
   const [, drag] = useDrag({

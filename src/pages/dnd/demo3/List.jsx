@@ -24,20 +24,19 @@ const List = ({ cardList, changeCardList }) => {
     }
   }
 
-  const moveCard = useCallback((draggedId, hoverIndex, dragIndex, id, monitor) => {
-    const isCurrentOver = monitor.isOver({ shallow: true })
-    if (id !== draggedId) {
-      return
-    }
+  const moveCard = useCallback((draggedId, hoverIndex, dragIndex, col, id, monitor) => {
+    // 拖拽到包含栅格的card上
+    const canDrop = monitor.canDrop()
     // 从左侧拖到右侧列表
     if (dragIndex === undefined) {
       const initIndex = cardList.findIndex(_ => _.id === -1)
-      if (initIndex !== hoverIndex) {
+      if (initIndex !== hoverIndex && initIndex !== -1 && initIndex !== undefined && canDrop) {
         const newList = update(cardList, {
           $splice: [[initIndex, 1], [hoverIndex, 0, { name: '请移动到这里', id: -1, col: 24 }]],
         })
         if (!isEqual(cardList, newList)) changeCardList(newList)
       }
+
       return
     }
 
@@ -48,6 +47,23 @@ const List = ({ cardList, changeCardList }) => {
         $splice: [[index, 1], [hoverIndex, 0, card]],
       });
       if (!isEqual(cardList, newList)) changeCardList(newList)
+    }
+  }, [cardList])
+
+  const removeInitCard = useCallback(() => {
+    const initIndex = cardList.findIndex(_ => _.id === -1)
+    if (initIndex !== -1) {
+      const newList = update(cardList, {
+        $splice: [[initIndex, 1]],
+      })
+      if (!isEqual(cardList, newList)) changeCardList(newList)
+    }
+  }, [cardList])
+
+  const addInitCard = useCallback(() => {
+    const hasInit = cardList.some(_ => _.id === -1)
+    if (!hasInit) {
+      changeCardList([...cardList, { name: '请移动到这里', id: -1, col: 24 }]);
     }
   }, [cardList])
 
@@ -66,12 +82,14 @@ const List = ({ cardList, changeCardList }) => {
               id={item.id}
               key={`${item.id}${index}`}
               moveCard={moveCard}
+              removeInitCard={removeInitCard}
+              addInitCard={addInitCard}
               findCard={findCard}
               {...item}
             />
           ))
       }
-    </div>
+    </div >
   )
 }
 

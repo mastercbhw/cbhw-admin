@@ -15,18 +15,14 @@ function getStyle(borderColor) {
  * @param {number} index 当前的索引
  */
 
-const CardCol = ({ parentHoverIndex, index, moveCard }) => {
+const CardCol = ({ parentHoverIndex, index, moveCard, col }) => {
   const [hasDropped, setHasDropped] = useState(false)
   const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false)
 
   const [{ isOver, isOverCurrent }, drop] = useDrop({
     accept: ItemTypes.CARD,
-    canDrop(item, monitor) {
-      console.log('TCL: canDrop -> monitor.getItem()', monitor.getItem())
-      const col = monitor.getItem() ? monitor.getItem().col : 24
-      return col === 24
-    },
     drop(item, monitor) {
+      console.log('TCL: drop -> item', item)
       if (!item.col || (item.hasOwnProperty('col') && item.col !== 24)) {
         return
       }
@@ -54,8 +50,6 @@ const CardCol = ({ parentHoverIndex, index, moveCard }) => {
   return (
     <div ref={drop} className={styles.cardCol} style={getStyle(borderColor)}>
       {text}
-      <br />
-      {hasDropped && <span>dropped {hasDroppedOnChild && ' on child'}</span>}
     </div>
   )
 }

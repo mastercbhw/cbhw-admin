@@ -3,9 +3,14 @@
   min-height: 50px;
   border-radius: 5px;
   background: #fff;
+  padding: 5px;
   // border: 2px solid #2C81FF;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
   cursor: move;
+
+  :global(.ant-form-item) {
+    margin-bottom: 0px !important;
+  }
 }
 
 .cardItemInit {
@@ -25,5 +30,6 @@
   border-radius: 5px;
   background: none;
   box-shadow: none;
+  padding: 0px;
   cursor: move;
 }
