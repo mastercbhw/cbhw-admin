@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
 import styles from './CardCol.less'
@@ -15,11 +15,11 @@ function getStyle(borderColor) {
  * @param {number} index 当前的索引
  */
 
-const CardCol = ({ parentHoverIndex, index, moveCard, col }) => {
+const CardCol = props => {
+  // const { parentHoverIndex, index, moveCard, col } = props
   const [hasDropped, setHasDropped] = useState(false)
-  const [hasDroppedOnChild, setHasDroppedOnChild] = useState(false)
 
-  const [{ isOver, isOverCurrent }, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop(item, monitor) {
       console.log('TCL: drop -> item', item)
@@ -33,11 +33,9 @@ const CardCol = ({ parentHoverIndex, index, moveCard, col }) => {
       }
 
       setHasDropped(true)
-      setHasDroppedOnChild(didDrop)
     },
     collect: monitor => ({
       isOver: monitor.isOver(),
-      isOverCurrent: monitor.isOver({ shallow: true }),
     }),
   })
 
@@ -50,7 +48,9 @@ const CardCol = ({ parentHoverIndex, index, moveCard, col }) => {
   return (
     <div ref={drop} className={styles.cardCol} style={getStyle(borderColor)}>
       {text}
+      {hasDropped ? 'aa' : 'bb'}
     </div>
   )
 }
+
 export default CardCol
