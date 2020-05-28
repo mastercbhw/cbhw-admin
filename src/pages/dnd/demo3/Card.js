@@ -7,7 +7,6 @@ import React, { useRef, useMemo, useCallback } from 'react';
 import { Row, Col, Input, Radio, Checkbox, Select, DatePicker, Divider, Form } from 'antd'
 import { useDrag, useDrop } from 'react-dnd';
 import classNames from 'classnames'
-import Title from './components/Title'
 import ItemTypes from './ItemTypes';
 import CardCol from './CardCol'
 import styles from './Card.less'
@@ -158,11 +157,7 @@ const Card = ({ id, name, col, index, eleType, moveCard, addInitCard, removeInit
         )
         break;
 
-      case 'title':
-        ele = (
-          <Title title={name} />
-        )
-        break;
+
       default:
         break;
     }

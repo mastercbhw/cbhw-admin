@@ -28,6 +28,25 @@ export default [
             redirect: '/welcome',
           },
           {
+            path: '/g6',
+            name: 'g6',
+            icon: 'rocket',
+            routes: [
+              {
+                path: '/g6/tree',
+                name: 'g6tree',
+                icon: 'unordered-list',
+                component: './g6/tree',
+              },
+              {
+                path: '/g6/tutorial',
+                name: 'tutorial',
+                icon: 'unordered-list',
+                component: './g6/tutorial',
+              },
+            ]
+          },
+          {
             path: '/welcome',
             name: 'welcome',
             icon: 'smile',
