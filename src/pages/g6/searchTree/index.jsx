@@ -31,7 +31,7 @@ const webNeedFields = {
 }
 
 // 关系和条件的基础数据
-const relationConBasicData = {
+const relationConBasicData = () => ({
   webParamId: '', // 表单节点的真实值 比如[1,12,123]
   name: '关系+条件', // 节点上显示的字段
   id: '', // 前端需要的节点id字段(不能为空)
@@ -42,10 +42,12 @@ const relationConBasicData = {
   andOrType: '', // 与或非
   compareType: '', // 比较类型(大于，等于，小于，包含)
   children: [], // children
-}
+})
 
 // 排除后面的“条件按钮”的基础数据
-const conditionButtonOnlyBasicData = {
+const conditionButtonOnlyBasicData = () => ({
+  ...backstageBasicData,
+  ...webNeedFields,
   webParamId: '', // 表单节点的真实值 比如[1,12,123]
   name: '+条件', // 节点上显示的字段
   id: '', // 前端需要的节点id字段(不能为空)
@@ -53,14 +55,14 @@ const conditionButtonOnlyBasicData = {
   componetType: 'LOGIN', // 逻辑：LOGIN，条件： CONDITION
   paramName: '', // 条件表达式的值 esField
   paramValue: '', // 参数的值
-  andOrType: 'NOT', // 与或非
+  andOrType: '', // 与或非
   compareType: '', // 比较类型(大于，等于，小于，包含)
   children: [], // children
-}
+})
 
 
 // 排除按钮的基础数据
-const removeBasicData = {
+const removeBasicData = () => ({
   webParamId: '',
   name: '排除',
   id: '', // 前端需要的节点id字段(不能为空)
@@ -71,7 +73,7 @@ const removeBasicData = {
   andOrType: '', // 与或非
   compareType: '', // 比较类型(大于，等于，小于，包含)
   children: [], // children
-}
+})
 
 
 // 新增表单节点 数据处理
@@ -91,7 +93,7 @@ const getConditionData = values => ({
   compareType: values.compareType,
   children: [
     {
-      ...removeBasicData,
+      ...removeBasicData(),
       id: uuidv4(),
     },
   ],
@@ -127,7 +129,7 @@ const initDataHasRelation = {
     compareType: '', // 比较类型(大于，等于，小于，包含)
     children: [
       {
-        ...relationConBasicData,
+        ...relationConBasicData(),
         id: uuidv4(),
       },
     ],
@@ -145,12 +147,12 @@ function addBroNode(data, findId, broData) {
     const found = newData.some(c => c.id === findId)
     if (found) {
       newData.splice(-1, 0, broData)
-    } else {
-      data.forEach(item => {
-        item.children = addBroNode(item.children, findId, broData)
-      })
+      return newData
     }
-    return newData
+    return newData.map(item => ({
+      ...item,
+      children: addBroNode(item.children, findId, broData),
+    }))
   }
   return []
 }
@@ -167,7 +169,6 @@ function changeSearchItemData(data, findId, values) {
     if (found) {
       newData = newData.map(a => {
         if (a.id === findId) {
-          console.log('changeSearchItemData -> a', a)
           return {
             ...a,
             name: `${values.webCascaderName} ${values.webCompareTypeName} ${values.paramValue}`,
@@ -181,17 +182,41 @@ function changeSearchItemData(data, findId, values) {
         }
         return a
       })
-    } else {
-      data.forEach(item => {
-        item.children = changeSearchItemData(item.children, findId, values)
-      })
+      return newData
     }
-    return newData
+
+
+    return data.forEach(item => ({
+      ...item,
+      children: changeSearchItemData(item.children, findId, values),
+    }))
+  }
+  return []
+}
+
+function addChildNode(data, findId, values) {
+  if (data.length) {
+    const newData = data
+    const found = newData.some(c => c.id === findId)
+    if (found) {
+      newData.forEach(c => {
+        if (c.id === findId) {
+          c.children.push(values)
+        }
+      })
+      return newData
+    }
+
+    return newData.map(item => ({
+      ...item,
+      children: addChildNode(item.children, findId, values),
+    }))
   }
   return []
 }
 
 
+// 条件树组件
 const SearchTree = props => {
   const { form } = props
   const graphRef = useRef() // 使用ref的current存储graph
@@ -245,7 +270,6 @@ const SearchTree = props => {
         container: chartsRef.current,
         width: 1000,
         height: getClientHeight(),
-        // linkCenter: true,
         modes: {
           default: [
             'drag-canvas',
@@ -282,7 +306,7 @@ const SearchTree = props => {
             return 30;
           },
           getWidth: function getWidth(d) {
-            if (d.id === 'root' || d.id === 'child1') {
+            if (d.id === 'root' || d.id === 'child1' || d.name === '排除' || d.componetType === 'LOGIN') {
               return 80
             }
             return 200;
@@ -371,7 +395,7 @@ const SearchTree = props => {
           type: SELECT_BUTTON,
           children: [
             {
-              ...relationConBasicData,
+              ...relationConBasicData(),
               id: uuidv4(),
             },
           ],
@@ -381,8 +405,8 @@ const SearchTree = props => {
         reRender()
       }
 
-      // 点击了条件按钮， 显示searchItem
-      if (shape.attrs.genre === CONDITION_BUTTON) {
+      // 点击了"条件"按钮,添加 显示searchItem
+      if (shape.attrs.genre === CONDITION_BUTTON || shape.attrs.genre === CONDITION_BUTTON_ONLY) {
         graph.setMode('readonly')
         setSearchItemX(point.x)
         setSearchItemY(point.y)
@@ -395,8 +419,6 @@ const SearchTree = props => {
       // 点击“表单节点”，显示查询条件item
       if (shape.attrs.genre === SEARCH_NODE && shape.cfg.name !== 'closeBtn') {
         const parentData = graph.findDataById(id)
-        console.log('parentData', parentData)
-
         graph.setMode('readonly')
         setSearchItemData(parentData)
         setSearchItemId(id)
@@ -408,21 +430,24 @@ const SearchTree = props => {
 
       // 点击“排除”按钮操作
       if (shape.attrs.genre === REMOVE_BUTTON) {
-        console.log('点击了排除按钮')
         const parentData = graph.findDataById(id)
         // 如果排除后面有“条件按钮”，则不进行添加
         if (Array.isArray(parentData.children) && parentData.children.length === 0) {
-          parentData.children.push({
-            ...conditionButtonOnlyBasicData,
+          const removeButtonData = {
+            ...conditionButtonOnlyBasicData(),
             id: uuidv4(),
-          })
+          }
+          initdata.children = addChildNode(initdata.children, id, removeButtonData)
+          // parentData.children.push({
+          //   ...conditionButtonOnlyBasicData(),
+          //   id: uuidv4(),
+          // })
           reRender()
         }
       }
 
       // 点击了叉号
       if (shape.cfg.name === 'closeBtn') {
-        console.log('点击了删除按钮')
         graph.removeChild(id)
         graph.moveTo(0, 0)
       }
@@ -481,7 +506,6 @@ const SearchTree = props => {
   // 点击searchItem的保存按钮
   const searchItemSave = useCallback(() => {
     form.validateFields((err, values) => {
-      console.log('searchItemSave -> values', values)
       if (!err) {
         const graph = graphRef.current
         if (searchItemType === 'search') { // （修改） 点击"表单节点"出来的searchItem
@@ -492,7 +516,9 @@ const SearchTree = props => {
 
         if (searchItemType === 'condition') { // （新增) 点击“+条件”节点出来的searchItem
           const borData = getConditionData(values)
-          initdata.children = addBroNode(initdata.children, searchItemId, borData)
+          const newChildren = addBroNode(initdata.children, searchItemId, borData)
+
+          initdata.children = newChildren
           reRender();
         }
 

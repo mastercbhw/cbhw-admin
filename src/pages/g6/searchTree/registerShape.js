@@ -256,9 +256,7 @@ G6.registerNode('relationButton', {
 G6.registerNode('removeButton', {
   shapeType: 'removeButton',
   draw(cfg, group) {
-    console.log('draw -> group', group)
-    console.log('draw -> cfg', cfg)
-    const { name = '', children = [] } = cfg;
+    const { name = '' } = cfg;
 
     const rect = group.addShape('rect', {
       attrs: {
@@ -266,7 +264,7 @@ G6.registerNode('removeButton', {
         y: 0,
         width: 50,
         height: 24,
-        fill: children.length ? '#666' : '#178aea',
+        fill: '#178aea',
         stroke: '#fff',
         cursor: 'pointer',
         lineWidth: 0.6,
@@ -297,7 +295,7 @@ G6.registerNode('removeButton', {
 
     return rect
   },
-});
+}, 'rect');
 
 // 注册下拉节点
 G6.registerNode('selectButton', {
