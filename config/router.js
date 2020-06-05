@@ -33,6 +33,24 @@ export default [
             icon: 'rocket',
             routes: [
               {
+                path: '/g6/decisionTree',
+                name: 'decisionTree',
+                icon: 'unordered-list',
+                component: './g6/decisionTree',
+              },
+              {
+                path: '/g6/searchTree',
+                name: 'searchTree',
+                icon: 'unordered-list',
+                component: './g6/searchTree',
+              },
+              {
+                path: '/g6/decideTree',
+                name: 'decideTree',
+                icon: 'unordered-list',
+                component: './g6/decideTree',
+              },
+              {
                 path: '/g6/tree',
                 name: 'g6tree',
                 icon: 'unordered-list',

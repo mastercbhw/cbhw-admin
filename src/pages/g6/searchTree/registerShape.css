@@ -1,0 +1,45 @@
+h2 {
+  float: left;
+  height: 24px;
+  margin: 0;
+  padding: 5px;
+  color: #6d6d6d;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+select,
+input {
+  width: 100%;
+
+  /* 为下拉小箭头留出一点位置，避免被文字覆盖 */
+  padding-right: 14px;
+  color: #666;
+  font-size: 1.4rem;
+
+  /* 适应safari浏览器内容不跑偏 */
+  line-height: 1;
+
+  /* 在选择框的最右侧中间显示小箭头图片 */
+
+  /*     background: url("../../img/my/btn_pulldown.png") no-repeat scroll right center transparent; */
+  background-size: 0.9rem 0.9rem;
+
+  /* 去除外边框 */
+  border: none;
+
+  /* 去除选中时样式 */
+  outline: none;
+
+  /* 将默认的select选择框样式清除 */
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  /* 去除点击一闪而过的灰色背景 */
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

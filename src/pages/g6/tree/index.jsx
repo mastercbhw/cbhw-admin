@@ -89,7 +89,7 @@ export default function () {
           default: ['drag-canvas', 'name'],
         },
         defaultNode: {
-          shape: 'node',
+          type: 'node',
           labelCfg: {
             style: {
               fill: '#000000A6',
@@ -102,7 +102,7 @@ export default function () {
           },
         },
         defaultEdge: {
-          shape: 'polyline',
+          type: 'polyline',
         },
         layout: {
           type: 'dagre',
