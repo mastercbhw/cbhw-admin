@@ -186,7 +186,7 @@ function changeSearchItemData(data, findId, values) {
     }
 
 
-    return data.forEach(item => ({
+    return data.map(item => ({
       ...item,
       children: changeSearchItemData(item.children, findId, values),
     }))
@@ -511,13 +511,12 @@ const SearchTree = props => {
         if (searchItemType === 'search') { // （修改） 点击"表单节点"出来的searchItem
           initdata.children = changeSearchItemData(initdata.children, searchItemId, values)
           reRender();
-          graph.refreshItem(searchItemId);
+          graph.refreshItem(searchItemId); // 此处代码是为了处理changeData后，该表单节点刷新的bug
         }
 
         if (searchItemType === 'condition') { // （新增) 点击“+条件”节点出来的searchItem
           const borData = getConditionData(values)
           const newChildren = addBroNode(initdata.children, searchItemId, borData)
-
           initdata.children = newChildren
           reRender();
         }
